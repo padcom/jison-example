@@ -22,11 +22,11 @@ id                   [a-z][a-z0-9]*
 
 /lex
 
+%right '='
 %left '+' '-'
 %left '*' '/'
 %left '^'
 %left UMINUS
-%right '='
 
 %start input
 
