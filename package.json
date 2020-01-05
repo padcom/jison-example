@@ -1,0 +1,14 @@
+{
+  "name": "jison-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jison --help"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jison": "^0.4.18"
+  }
+}
