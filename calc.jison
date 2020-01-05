@@ -7,6 +7,7 @@ id                   [a-z][a-z0-9]*
 
 \n                    /* skip new lines */
 \s+                   /* skip whitespace */
+";"                   return 'SEMICOLON';
 {number}              return 'NUMBER';
 {id}                  return 'VAR';
 "*"                   return '*';
@@ -17,8 +18,6 @@ id                   [a-z][a-z0-9]*
 "("                   return '(';
 ")"                   return ')';
 "="                   return '=';
-";"                   return 'SEMICOLON';
-//<<EOF>>               return 'EOF';
 
 /lex
 
