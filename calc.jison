@@ -9,7 +9,8 @@ id                   [a-z][a-z0-9]*
 \s+                   /* skip whitespace */
 ";"                   return 'SEMICOLON';
 {number}              return 'NUMBER';
-{id}                  return 'VAR';
+{id}                  return 'IDENT';
+"func"                return 'FUNC';
 "*"                   return '*';
 "/"                   return '/';
 "-"                   return '-';
@@ -18,6 +19,8 @@ id                   [a-z][a-z0-9]*
 "("                   return '(';
 ")"                   return ')';
 "="                   return '=';
+"{"                   return '{';
+"}"                   return '}';
 
 /lex
 
@@ -39,7 +42,7 @@ input
 
 line
     : exp SEMICOLON line
-        { $$ = [ $1, $3 ]; }
+        { $$ = [($1)].concat($3); }
     | exp SEMICOLON
         { $$ = [ $1 ]; }
     ;
@@ -47,9 +50,11 @@ line
 exp
     : NUMBER
         { $$ = { type: 'NUMBER', body: Number(yytext) }; }
-    | VAR
+    | IDENT '(' ')'
+        { $$ = { type: 'FUNC_CALL', name: $1 }; }
+    | IDENT
         { $$ = { type: 'VARIABLE', body: yytext }; }
-    | VAR '=' exp
+    | IDENT '=' exp
         { $$ = { type: 'ASSIGNMENT', variable: $1, body: $3 }; }
     | exp '+' exp
         { $$ = { type: 'PLUS', body: [ $1, $3 ] }; }
