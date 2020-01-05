@@ -5,7 +5,7 @@ id                   [a-z][a-z0-9]*
 
 %%
 
-\n                    return 'NEWLINE';
+\n                    /* skip new lines */
 \s+                   /* skip whitespace */
 {number}              return 'NUMBER';
 {id}                  return 'VAR';
@@ -40,9 +40,9 @@ input
 
 line
     : exp SEMICOLON line
-        { $$ = [ $1, $3 ] }
+        { $$ = [ $1, $3 ]; }
     | exp SEMICOLON
-        { $$ = [ $1 ] }
+        { $$ = [ $1 ]; }
     ;
 
 exp
